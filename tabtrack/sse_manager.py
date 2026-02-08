@@ -1,4 +1,5 @@
 import asyncio
+from datetime import datetime
 
 from pydantic import BaseModel
 
@@ -10,6 +11,7 @@ class SubscriptionEvent(BaseModel):
     section: str
     value: float
     author: str
+    updated_at: datetime
 
 
 type SubscriptionKey = tuple[str, str]
@@ -59,6 +61,7 @@ class ConnectionManager:
             section=point.section,
             value=point.value,
             author=point.pushed_by,
+            updated_at=datetime.now(),
         )
 
         for device_ in (event.device, "*"):
