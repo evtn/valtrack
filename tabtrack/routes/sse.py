@@ -28,7 +28,7 @@ async def subscribe(
                 try:
                     event = await asyncio.wait_for(queue.get(), timeout=1.0)
                     if apikey.can_read(event.device, event.section):
-                        yield {"data": event.model_dump(mode="json")}
+                        yield {"data": event.model_dump_json()}
                 except asyncio.TimeoutError:
                     continue
         finally:
