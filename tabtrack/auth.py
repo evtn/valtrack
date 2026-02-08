@@ -53,8 +53,8 @@ class APIKey(BaseModel):
     ):
         return APIKey(
             key_id=f"$onetime-{id(object())}",
-            devices=[device],
-            section=[section],
+            devices={device},
+            sections={section},
             access=AccessScopes(read=True),
             created_at=datetime.now(),
         )
