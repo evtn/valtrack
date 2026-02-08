@@ -46,6 +46,19 @@ class APIKey(BaseModel):
             access=AccessScopes.master(),
         )
 
+    @staticmethod
+    def onetime_read(
+        device: str,
+        section: str,
+    ):
+        return APIKey(
+            key_id=f"$onetime-{id(object())}",
+            devices=[device],
+            section=[section],
+            access=AccessScopes(read=True),
+            created_at=datetime.now(),
+        )
+
     def can_access_base(self, device: str, section: str):
         return self.can_access_device(device) and self.can_access_section(section)
 

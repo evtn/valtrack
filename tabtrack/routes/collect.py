@@ -1,7 +1,7 @@
 from datetime import datetime
 from typing import Literal
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -101,6 +101,8 @@ async def collect_data(
 async def get_history(
     device: str,
     section: str,
+    offset: int = Query(0, ge=0),
+    limit: int = Query(100, ge=1, le=500),
     db: AsyncSession = Depends(get_db),
     scopes: APIKey = Depends(verify_api_key),
 ) -> list[Value]:
@@ -114,6 +116,8 @@ async def get_history(
     async for point in get_time_points(
         db,
         scopes,
+        offset=offset,
+        limit=limit,
         is_distinct=False,
     ):
         values.append(Value.from_point(point))

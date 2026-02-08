@@ -5,9 +5,25 @@ from tabtrack.auth import APIKey
 from tabtrack.schemas import TimeSeriesModel
 
 
+async def get_time_point(
+    db: AsyncSession,
+    device: str,
+    section: str,
+) -> TimeSeriesModel | None:
+    async for point in get_time_points(
+        db,
+        APIKey.onetime_read(device, section),
+        limit=1,
+    ):
+        return point
+    return None
+
+
 async def get_time_points(
     db: AsyncSession,
     api_key: APIKey,
+    offset: int = 0,
+    limit: int | None = None,
     is_distinct: bool = True,
 ):
     # Get latest value for each (device, section) using DISTINCT ON
@@ -32,6 +48,12 @@ async def get_time_points(
         TimeSeriesModel.section,
         TimeSeriesModel.timestamp.desc(),
     )
+
+    if offset:
+        stmt = stmt.offset(offset)
+
+    if limit:
+        stmt = stmt.limit(limit)
 
     for point in (await db.execute(stmt)).scalars().all():
         # just in case
