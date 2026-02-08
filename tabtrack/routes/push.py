@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime, timezone
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -36,7 +36,7 @@ async def push_data(
     time_series_entry = TimeSeriesModel(
         device=device,
         section=section,
-        timestamp=datetime.now(timezone.utc),
+        timestamp=datetime.now(tz=UTC),
         value=request.value,
         pushed_by=api_key.key_id,
     )

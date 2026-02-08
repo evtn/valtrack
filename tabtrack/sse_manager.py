@@ -1,5 +1,5 @@
 import asyncio
-from datetime import datetime
+from datetime import UTC, datetime
 
 from pydantic import BaseModel
 
@@ -61,7 +61,7 @@ class ConnectionManager:
             section=point.section,
             value=point.value,
             author=point.pushed_by,
-            updated_at=datetime.now(),
+            updated_at=datetime.now(tz=UTC),
         )
 
         for device_ in (event.device, "*"):
