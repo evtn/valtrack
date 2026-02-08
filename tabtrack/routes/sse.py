@@ -34,4 +34,12 @@ async def subscribe(
         finally:
             manager.unsubscribe(queue, device, section)
 
-    return EventSourceResponse(event_generator())
+    return EventSourceResponse(
+        event_generator(),
+        headers={
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Accel-Buffering": "no",
+            "Content-Type": "text/event-stream",
+        },
+    )
