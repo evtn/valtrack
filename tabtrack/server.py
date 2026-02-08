@@ -31,7 +31,7 @@ app.include_router(sse.router)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5137",
+        "http://localhost:5173",
         "https://tabs.evtn.me",
     ],
     allow_credentials=True,
