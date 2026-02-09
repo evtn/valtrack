@@ -1,7 +1,7 @@
 [project]
-name = "tabtrack"
-version = "0.1.0"
-description = "Add your description here"
+name = "valtrack"
+version = "0.0.1"
+description = "simplest metric solution this side of the number river"
 readme = "README.md"
 requires-python = ">=3.14"
 dependencies = [
@@ -10,11 +10,6 @@ dependencies = [
     "sqlalchemy>=2.0.46",
     "sse-starlette>=3.2.0",
     "uvicorn>=0.40.0",
-]
-
-[dependency-groups]
-dev = [
-    "ty>=0.0.15",
 ]
 
 [tool.pyrefly]

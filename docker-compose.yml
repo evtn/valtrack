@@ -2,7 +2,7 @@ services:
   api:
     build: .
     ports:
-      - "17548:8000"
+      - "${PORT:-17548}:8000"
     environment:
       - DATABASE_URL=postgresql+asyncpg://postgres:postgres@timescaledb:5432/tabtrack
       - MASTER_KEY=${MASTER_KEY:?MASTER_KEY must be set}

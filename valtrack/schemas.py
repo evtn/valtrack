@@ -43,6 +43,10 @@ class APIKeySchema(Base):
         return bool(self.permissions & Permissions.HISTORY)
 
     @property
+    def can_manage(self) -> bool:
+        return bool(self.permissions & Permissions.ADMIN)
+
+    @property
     def device_set(self) -> Wildcard | set[str]:
         if "*" in self.devices:
             return "*"

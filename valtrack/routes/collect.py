@@ -5,10 +5,10 @@ from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from tabtrack.auth import APIKey, verify_api_key
-from tabtrack.database import get_db
-from tabtrack.schemas import TimeSeriesModel
-from tabtrack.service.query import get_time_points
+from valtrack.auth import APIKey, verify_api_key
+from valtrack.database import get_db
+from valtrack.query import get_time_points
+from valtrack.schemas import TimeSeriesModel
 
 router = APIRouter(prefix="/items")
 

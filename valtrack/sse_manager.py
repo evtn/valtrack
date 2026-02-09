@@ -3,7 +3,7 @@ from datetime import UTC, datetime
 
 from pydantic import BaseModel
 
-from tabtrack.schemas import TimeSeriesModel
+from valtrack.schemas import TimeSeriesModel
 
 
 class SubscriptionEvent(BaseModel):

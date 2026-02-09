@@ -9,6 +9,7 @@ class PushRequest(BaseModel):
     device: str
     section: str
     value: float
+    forcepush: bool = False
 
 
 type APIKeyPermission = Literal["read", "write", "history", "admin"]

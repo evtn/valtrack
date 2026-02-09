@@ -1,14 +1,14 @@
-from datetime import UTC, datetime, timezone
+from datetime import UTC, datetime
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from tabtrack.auth import APIKey, verify_api_key
-from tabtrack.database import get_db
-from tabtrack.models import PushRequest
-from tabtrack.schemas import TimeSeriesModel
-from tabtrack.service.query import get_time_point
-from tabtrack.sse_manager import manager
+from valtrack.auth import APIKey, verify_api_key
+from valtrack.database import get_db
+from valtrack.models import PushRequest
+from valtrack.query import get_time_point
+from valtrack.schemas import TimeSeriesModel
+from valtrack.sse_manager import manager
 
 router = APIRouter()
 
@@ -28,10 +28,11 @@ async def push_data(
             detail=f"API key not authorized for writing to '{device}'/'{section}' key",
         )
 
-    point = await get_time_point(db, device, section)
+    if not request.forcepush:
+        point = await get_time_point(db, device, section)
 
-    if point and point.value == request.value:
-        return
+        if point and point.value == request.value:
+            return
 
     time_series_entry = TimeSeriesModel(
         device=device,

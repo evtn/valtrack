@@ -3,8 +3,8 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from tabtrack.database import init_db
-from tabtrack.routes import collect, keys, push, sse
+from valtrack.database import init_db
+from valtrack.routes import collect, keys, push, sse
 
 
 @asynccontextmanager

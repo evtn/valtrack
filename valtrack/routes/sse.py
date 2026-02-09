@@ -4,8 +4,8 @@ from typing import AsyncGenerator
 from fastapi import APIRouter, Depends, Request
 from sse_starlette.sse import EventSourceResponse
 
-from tabtrack.auth import APIKey, verify_api_key
-from tabtrack.sse_manager import SubscriptionEvent, manager
+from valtrack.auth import APIKey, verify_api_key
+from valtrack.sse_manager import SubscriptionEvent, manager
 
 router = APIRouter()
 

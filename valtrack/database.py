@@ -4,8 +4,8 @@ from fastapi import HTTPException
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 
-from tabtrack.config import DATABASE_URL
-from tabtrack.schemas import Base
+from valtrack.config import DATABASE_URL
+from valtrack.schemas import Base
 
 async_session_maker: async_sessionmaker[AsyncSession] | None = None
 

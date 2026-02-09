@@ -5,15 +5,15 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import delete, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from tabtrack.auth import (
+from valtrack.auth import (
     APIKey,
     hash_api_key,
     verify_admin_key,
     verify_api_key,
 )
-from tabtrack.database import get_db
-from tabtrack.models import APIKeyCreate, APIKeyResponse
-from tabtrack.schemas import APIKeySchema, Permissions
+from valtrack.database import get_db
+from valtrack.models import APIKeyCreate, APIKeyResponse
+from valtrack.schemas import APIKeySchema, Permissions
 
 keys_router = APIRouter(prefix="/keys")
 admin_router = APIRouter(prefix="/admin")

@@ -1,8 +1,8 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from tabtrack.auth import APIKey
-from tabtrack.schemas import TimeSeriesModel
+from valtrack.auth import APIKey
+from valtrack.schemas import TimeSeriesModel
 
 
 async def get_time_point(

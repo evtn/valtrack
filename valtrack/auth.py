@@ -1,4 +1,5 @@
 import hashlib
+import secrets
 from datetime import datetime
 
 from fastapi import Depends, HTTPException, Security
@@ -6,9 +7,9 @@ from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from pydantic import BaseModel, Field
 from sqlalchemy import select
 
-from tabtrack import database
-from tabtrack.config import MASTER_KEY
-from tabtrack.schemas import APIKeySchema, Wildcard
+from valtrack import database
+from valtrack.config import MASTER_KEY
+from valtrack.schemas import APIKeySchema, Wildcard
 
 security = HTTPBearer(auto_error=False)
 
@@ -129,6 +130,7 @@ class APIKey(BaseModel):
                 write=db_model.can_write,
                 read=db_model.can_read,
                 history=db_model.can_read_history,
+                admin=db_model.can_manage,
             ),
             created_at=db_model.created_at,
         )
@@ -149,7 +151,7 @@ async def verify_api_key(
 
     api_key = credentials.credentials
 
-    if api_key == MASTER_KEY:
+    if secrets.compare_digest(api_key, MASTER_KEY):
         return APIKey.master()
 
     key_hash = hash_api_key(api_key)
