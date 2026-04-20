@@ -1,4 +1,5 @@
 FROM ghcr.io/astral-sh/uv:python3.14-alpine
+LABEL org.opencontainers.image.source="https://github.com/evtn/valtrack"
 
 WORKDIR /app
 
