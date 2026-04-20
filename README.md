@@ -28,9 +28,10 @@ echo "MASTER_KEY=$(openssl rand -hex 32)" > .env
 (optionally you can set up PORT environment variable to start API on non-default port, by default it's 17548)
 
 3. Start the services:
-   ```bash
-   docker compose up -d
-   ```
+
+```bash
+docker compose up -d
+```
 
 The API will be available at http://localhost:17548 (or the port specified in `.env`).
 
