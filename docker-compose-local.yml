@@ -1,11 +1,10 @@
 services:
   api:
-    container_name: valtrack-api
-    image: ghcr.io/evtn/valtrack:latest
+    build: .
     ports:
       - "${PORT:-17548}:8000"
     environment:
-      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@valtrack-db:5432/tabtrack
+      - DATABASE_URL=postgresql+asyncpg://postgres:postgres@timescaledb:5432/tabtrack
       - MASTER_KEY=${MASTER_KEY:?MASTER_KEY must be set}
     depends_on:
       - timescaledb
@@ -13,7 +12,6 @@ services:
 
   timescaledb:
     image: timescale/timescaledb:latest-pg18
-    container_name: valtrack-db
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres

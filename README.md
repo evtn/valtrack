@@ -11,20 +11,28 @@ Built on top of Postgres/TimescaleDB (bring your own instance or just use the on
 
 And with that you can mostly do anything you want.
 
-## Quick Start
+## Quick Start (Docker Compose)
 
-1. Copy `.env.example` to `.env` and set a secure `MASTER_KEY`:
-   ```bash
-   cp .env.example .env
-   # Edit .env and set MASTER_KEY to a random string
-   ```
+1. Copy contents of repo docker-compose.yml into any empty folder where you want to set up valtrack (e.g. valtrack):
 
-2. Start the services:
+```bash
+wget https://raw.githubusercontent.com/evtn/valtrack/refs/heads/lord/docker-compose.yml
+```
+
+2. Create `.env` file with a random `MASTER_KEY`:
+
+```bash
+echo "MASTER_KEY=$(openssl rand -hex 32)" > .env
+```
+
+(optionally you can set up PORT environment variable to start API on non-default port, by default it's 17548)
+
+3. Start the services:
    ```bash
    docker compose up -d
    ```
 
-3. The API will be available at `http://localhost:17548` (or the port specified in `.env`).
+The API will be available at http://localhost:17548 (or the port specified in `.env`).
 
 ## Authentication
 
@@ -36,6 +44,8 @@ curl -H "Authorization: Bearer $MASTER_KEY" http://localhost:17548/admin/keys
 ```
 
 ## API Overview
+
+Swagger page is available at http://localhost:17548/docs
 
 ### Push Data
 
